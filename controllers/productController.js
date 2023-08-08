@@ -19,7 +19,7 @@ dotenv.config();
 
 export const createProductController = async (req, res) => {
   try {
-    const { name, description, price, category, quantity, shipping } =
+    const { name, description, price, category,author,isbn, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
     //alidation
@@ -32,7 +32,11 @@ export const createProductController = async (req, res) => {
         return res.status(500).send({ error: "Price is Required" });
       case !category:
         return res.status(500).send({ error: "Category is Required" });
-      case !quantity:
+          case !author:
+        return res.status(500).send({ error: "Author is Required" });
+        case !isbn:
+          return res.status(500).send({ error: "ISBN is Required" });
+          case !quantity:
         return res.status(500).send({ error: "Quantity is Required" });
       case photo && photo.size > 1000000:
         return res
@@ -110,7 +114,7 @@ export const getSingleProductController = async (req, res) => {
 // get photo
 export const productPhotoController = async (req, res) => {
   try {
-    const product = await productModel.findById(req.params.pid).select("photo");
+    const product = await productModel.findById(req.params.pid).select("photo") ;
     if (product.photo.data) {
       res.set("Content-type", product.photo.contentType);
       return res.status(200).send(product.photo.data);
@@ -146,7 +150,7 @@ export const deleteProductController = async (req, res) => {
 //upate producta
 export const updateProductController = async (req, res) => {
   try {
-    const { name, description, price, category, quantity, shipping } =
+    const { name, description, price, category,author,isbn, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
     //alidation
@@ -159,6 +163,10 @@ export const updateProductController = async (req, res) => {
         return res.status(500).send({ error: "Price is Required" });
       case !category:
         return res.status(500).send({ error: "Category is Required" });
+        case !author:
+          return res.status(500).send({ error: "Author is Required" });
+          case !isbn:
+            return res.status(500).send({ error: "ISBN is Required" });
       case !quantity:
         return res.status(500).send({ error: "Quantity is Required" });
       case photo && photo.size > 1000000:
@@ -247,7 +255,9 @@ export const productListController = async (req, res) => {
     res.status(200).send({
       success: true,
       products,
+      
     });
+    
   } catch (error) {
     console.log(error);
     res.status(400).send({
@@ -257,6 +267,7 @@ export const productListController = async (req, res) => {
     });
   }
 };
+
 
 // search product
 export const searchProductController = async (req, res) => {

@@ -6,12 +6,6 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    authorname: {
-      type: String,
-      required: true,
-    },  
-    
-
     slug: {
       type: String,
       required: true,
@@ -20,11 +14,6 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isbn: {
-      type: Number,
-      required: true,
-    },
-  
     price: {
       type: Number,
       required: true,
@@ -33,6 +22,14 @@ const productSchema = new mongoose.Schema(
       type: mongoose.ObjectId,
       ref: "Category",
       required: true,
+    },
+    author : {
+      type: String,
+      required: true,
+    },
+    isbn :{
+      type:Number,
+      required:true,
     },
     quantity: {
       type: Number,

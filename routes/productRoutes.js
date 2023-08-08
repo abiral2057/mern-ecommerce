@@ -14,6 +14,9 @@ import {
   realtedProductController,
   searchProductController,
   updateProductController,
+  // createProductReview,
+  // getProductReviews,
+  // deleteReview,
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 import formidable from "express-formidable";
@@ -73,5 +76,11 @@ router.get("/product-category/:slug", productCategoryController);
 
 // //payments
  router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
+
+//  router.route("/review").put( createProductReview);
+//  router
+//   .route("/reviews")
+//   .get(getProductReviews)
+//   .delete(deleteReview);
 
 export default router;
